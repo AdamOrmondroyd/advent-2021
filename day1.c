@@ -18,6 +18,7 @@ int day1a()
         fclose(file);
         printf("There were %d increases \n", counter);
     }
+    return 0;
 }
 
 int day1b()
@@ -50,6 +51,7 @@ int day1b()
         previous_sum = current_sum;
     }
     printf("There were %d increases with a window size of %d \n", counter, window_size);
+    return 0;
 }
 
 int main()
