@@ -12,16 +12,16 @@ struct bingo_grid
 
 int initialise_grid(struct bingo_grid *grid)
 {
-    (*grid).unmarked_sum = 0;
-    (*grid).finished = 0;
+    grid->unmarked_sum = 0;
+    grid->finished = 0;
     int i, ii;
     for (ii = 0; ii < 5; ii++)
     {
-        (*grid).row_counters[ii] = 0;
-        (*grid).column_counters[ii] = 0;
+        grid->row_counters[ii] = 0;
+        grid->column_counters[ii] = 0;
         for (i = 0; i < 5; i++)
         {
-            (*grid).unmarked_sum += (*grid).numbers[ii][i];
+            grid->unmarked_sum += grid->numbers[ii][i];
         }
     }
     return 0;
@@ -29,7 +29,7 @@ int initialise_grid(struct bingo_grid *grid)
 
 int update_grid(struct bingo_grid *grid, int call)
 {
-    if ((*grid).finished)
+    if (grid->finished)
         return 0;
     int i = 0;
     int ii = 0;
@@ -42,9 +42,9 @@ int update_grid(struct bingo_grid *grid, int call)
             if (call == (*grid).numbers[ii][i])
             {
                 found = 1;
-                (*grid).unmarked_sum -= call;
-                (*grid).row_counters[ii]++;
-                (*grid).column_counters[i]++;
+                grid->unmarked_sum -= call;
+                grid->row_counters[ii]++;
+                grid->column_counters[i]++;
             }
             i++;
         }
@@ -52,10 +52,10 @@ int update_grid(struct bingo_grid *grid, int call)
     }
     for (i = 0; i < 5; i++)
     {
-        if (((*grid).row_counters[i] == 5) || ((*grid).column_counters[i] == 5))
+        if ((grid->row_counters[i] == 5) || (grid->column_counters[i] == 5))
         {
-            (*grid).finished = 1;
-            return (*grid).unmarked_sum * call;
+            grid->finished = 1;
+            return grid->unmarked_sum * call;
         }
     }
     return 0;
