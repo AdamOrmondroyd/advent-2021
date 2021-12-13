@@ -115,7 +115,7 @@ int step(int num_columns, int num_rows, int grid[num_rows][num_columns], int fla
     return flash_counter;
 }
 
-int day9a()
+int day11()
 {
     int num_rows = 0, num_columns = 0;
     char temp_char;
@@ -187,6 +187,6 @@ int day9a()
 
 int main()
 {
-    day9a();
+    day11();
     return 1;
 }
