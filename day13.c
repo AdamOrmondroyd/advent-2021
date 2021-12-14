@@ -63,7 +63,6 @@ int day13a()
         }
         rewind(file);
         num_folds = num_folds / 3;
-        printf("%d dots, %d folds\n", num_dots, num_folds);
 
         int dots[2][num_dots];
 
@@ -102,31 +101,36 @@ int day13a()
                     }
                 }
             }
-        }
-        if (0 == ii)
-        {
-            // count non_duplicates
-            char duplicate;
-            int counter = 0;
 
-            for (ii = 0; ii < num_dots; ii++)
+            if (0 == ii)
             {
-                duplicate = 0;
-                for (i = 0; (i < ii && !duplicate); i++)
+                // count non_duplicates
+                char duplicate;
+                int counter = 0;
+
+                for (ii = 0; ii < num_dots; ii++)
                 {
-                    if (dots[0][i] == dots[0][ii] && dots[1][i] == dots[1][ii])
+                    duplicate = 0;
+                    for (i = 0; (i < ii && !duplicate); i++)
                     {
-                        duplicate = 1;
+                        if (dots[0][i] == dots[0][ii] && dots[1][i] == dots[1][ii])
+                        {
+                            duplicate = 1;
+                        }
+                    }
+                    if (!duplicate)
+                    {
+                        counter++;
                     }
                 }
-                if (!duplicate)
-                {
-                    counter++;
-                }
+                printf("there are %d holes remaining after the first fold\n", counter);
             }
-            printf("there are %d holes remaining\n", counter);
+            if (num_folds - 1 == ii)
+            {
+                print_paper(num_dots, dots, last_x_fold, last_y_fold);
+            }
         }
-        print_paper(num_dots, dots, last_x_fold, last_y_fold);
+
         fclose(file);
     }
     return 0;
