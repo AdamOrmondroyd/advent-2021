@@ -36,13 +36,9 @@ with open("input14.txt", "r") as file:
         increment_letter(letter, 1)
 
     for i, _ in enumerate(start_string[:-1]):
-        print(i)
         num_each_pair[start_string[i : i + 2]] += 1
 
-    print(num_each_pair)
-
     for i in range(max_depth):
-        print(i)
         new_num_each_pair = deepcopy(num_each_pair)
         for pair in num_each_pair.keys():
             new_letter = rules[pair]
@@ -56,9 +52,6 @@ with open("input14.txt", "r") as file:
 
         num_each_pair = new_num_each_pair
 
-    print(num_each_pair)
-
     nonzeros = count_each_letter[np.nonzero(count_each_letter)]
-    print(nonzeros)
 
     print(np.max(nonzeros) - np.min(nonzeros))
