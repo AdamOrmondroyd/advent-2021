@@ -54,4 +54,4 @@ with open("input14.txt", "r") as file:
 
     nonzeros = count_each_letter[np.nonzero(count_each_letter)]
 
-    print(np.max(nonzeros) - np.min(nonzeros))
+    print(int(np.max(nonzeros) - np.min(nonzeros)))
