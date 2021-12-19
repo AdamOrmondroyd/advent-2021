@@ -1,4 +1,4 @@
-from numpy import log2, floor, longdouble, prod, sum, amin, amax
+from numpy import log2, floor, longdouble, prod, sum, amin, amax, array, append
 
 
 def reverse_bits(bits, length=None):
@@ -78,7 +78,11 @@ with open("input16.txt") as file:
                     reversed_packet >>= 5
                 print(f"literal value: {literal_value}")
 
+                return literal_value, reversed_packet
+
             else:
+                operator = operator_map[packet_type_ID]
+                results = array([])
                 length_type_ID = reversed_packet & 1
                 reversed_packet >>= 1
                 if length_type_ID:  # 1
@@ -89,7 +93,8 @@ with open("input16.txt") as file:
                     reversed_packet >>= 11
                     print(f"num sub packets {num_sub_packets}")
                     for i in range(num_sub_packets):
-                        reversed_packet = parse(reversed_packet)
+                        number, reversed_packet = parse(reversed_packet)
+                        results = append(results, number)
                 else:  # 0
 
                     print(15)
@@ -104,9 +109,12 @@ with open("input16.txt") as file:
 
                     while subpackets != 0:
 
-                        subpackets = parse(subpackets)
+                        number, subpackets = parse(subpackets)
+                        results = append(results, number)
 
-        return reversed_packet
+                return operator(results), reversed_packet
+        return 0, reversed_packet
 
-    parse(reversed_packet)
+    result, _ = parse(reversed_packet)
     print(f"sum of version numbers {sum_versions}")
+    print(f"result: {int(result)}")
