@@ -31,6 +31,30 @@ def need_split(numbers):
     return np.any(np.array(numbers) >= 10)
 
 
+def idx_first_max_depth(depths):
+    depths = np.array(depths)
+    return np.where(depths == np.amax(depths))[0][0]
+
+
+def magnitude_deepest(numbers, depths):
+    idx = idx_first_max_depth(depths)
+    mag = 3 * numbers[idx] + 2 * numbers[idx + 1]
+    numbers[idx] = mag
+    depths[idx] -= 1
+    del numbers[idx + 1]
+    del depths[idx + 1]
+
+
+def magnitude(numbers, depths):
+    while len(numbers) > 1:
+        print(numbers)
+        print(depths)
+        magnitude_deepest(numbers, depths)
+    print(numbers)
+    print(depths)
+    return numbers[0]
+
+
 def split(numbers, depths):
     idx = 0
     splitted = False
@@ -46,7 +70,7 @@ def split(numbers, depths):
         idx += 1
 
 
-with open("input_example.txt") as file:
+with open("input18.txt") as file:
     lines = file.read().splitlines()
     for line in lines:
         print(line)
@@ -72,16 +96,12 @@ with open("input_example.txt") as file:
         keep_going = True
 
         while keep_going:
-            print(numbers)
-            print(depths)
             if need_explode(depths):
-                print("explode")
                 explode(numbers, depths)
                 exploded = True
             else:
                 exploded = False
             if not exploded and need_split(numbers):
-                print("split")
                 split(numbers, depths)
                 splitted = True
             else:
@@ -89,7 +109,6 @@ with open("input_example.txt") as file:
             if not exploded and not splitted:
                 keep_going = False
 
-        print(numbers)
-        print(depths)
+    print(magnitude(numbers, depths))
 
-        # while not check_if_reduced(numbers, depths):
+    # while not check_if_reduced(numbers, depths):
