@@ -47,11 +47,7 @@ def magnitude_deepest(numbers, depths):
 
 def magnitude(numbers, depths):
     while len(numbers) > 1:
-        print(numbers)
-        print(depths)
         magnitude_deepest(numbers, depths)
-    print(numbers)
-    print(depths)
     return numbers[0]
 
 
@@ -70,10 +66,11 @@ def split(numbers, depths):
         idx += 1
 
 
-with open("input18.txt") as file:
-    lines = file.read().splitlines()
+def add_lines(lines):
+    depth = -1
+    numbers = []
+    depths = []
     for line in lines:
-        print(line)
 
         for i, depth in enumerate(depths):
             depths[i] += 1
@@ -109,6 +106,21 @@ with open("input18.txt") as file:
             if not exploded and not splitted:
                 keep_going = False
 
-    print(magnitude(numbers, depths))
+    return magnitude(numbers, depths)
 
-    # while not check_if_reduced(numbers, depths):
+
+with open("input_example.txt") as file:
+    lines = file.read().splitlines()
+
+    # part a
+    print(f"part a: {add_lines(lines)}")
+
+    # part b
+    magnitudes = np.zeros((len(lines), len(lines)))
+    for ii, _ in enumerate(lines):
+        for i, _ in enumerate(lines):
+            if i != ii:
+                magnitudes[ii, i] = add_lines([lines[i], lines[ii]])
+                print(f"{i}, {ii} {magnitudes[ii, i]}")
+
+    print(f"part b: {np.amax(magnitudes)}")
