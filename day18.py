@@ -109,7 +109,7 @@ def add_lines(lines):
     return magnitude(numbers, depths)
 
 
-with open("input_example.txt") as file:
+with open("input18.txt") as file:
     lines = file.read().splitlines()
 
     # part a
